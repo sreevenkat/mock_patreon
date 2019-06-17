@@ -75,3 +75,34 @@ class Tier(models.Model):
     updated_at =models.DateTimeField(auto_now=True)
     deleted = models.BooleanField(default=False)
 
+class Member(models.Model):
+
+    Patron_Status_Choices = (
+        ('active_patron', 'active_patron'),
+        ('declined_patron', 'declined_patron'),
+        ('former_patron', 'former_patron'),
+    )
+
+    Charge_Choices_Status = (
+        ('Paid', 'Paid'),
+        ('Declined', 'Declined'),
+        ('Deleted', 'Deleted'),
+        ('Pending', 'Pending'),
+        ('Refunded', 'Refunded'),
+        ('Fraud', 'Fraud'),
+        ('Other', 'Other'),
+    )
+
+    patron_status = models.CharField(max_length=256, null=True, 
+                        blank=True, choices=Patron_Status_Choices)
+    is_follower = models.BooleanField(default=False)
+    full_name = models.CharField(max_length=256)
+    email = models.EmailField()
+    pledge_relationship_start = models.DateTimeField(null=True, blank=True)
+    lifetime_support_cents = models.IntegerField(default=0)
+    currently_entitled_amount_cents = models.IntegerField()
+    last_charge_date = models.DateTimeField(null=True, blank=True)
+    last_charge_status = models.CharField(max_length=128, null=True, 
+                            blank=True, choices=Charge_Choices_Status)
+    note = models.TextField()
+    will_pay_amount_cents = models.IntegerField()
