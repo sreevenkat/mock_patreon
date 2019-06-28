@@ -106,3 +106,30 @@ class Member(models.Model):
                             blank=True, choices=Charge_Choices_Status)
     note = models.TextField()
     will_pay_amount_cents = models.IntegerField()
+    campaign = models.ForeignKey('Campaign')
+
+class Benefit(models.Model):
+
+    Benefit_Ruletype_Choices = (
+        ('eom_monthly', 'eom_monthly'),
+        ('one_time_immediate', 'one_time_immediate'),
+    )
+
+    title = models.CharField(max_length=256)
+    description = models.TextField(null=True, blank=True)
+    benifit_type = models.CharField(max_length=512, null=True, blank=True)
+    rule_type = models.CharField(max_length=256, null=True, blank=True,
+                                    choices=Benefit_Ruletype_Choices)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    delivered_delivarbles_count = models.IntegerField(default=0)
+    not_delivered_deliverables_count = models.IntegerField(default=0)
+    deliverables_due_today_count = models.IntegerField(default=0)
+    next_deliverable_due_date = models.DateTimeField(null=True, blank=True)
+    tiers_count = models.IntegerField(default=0)
+    is_deleted = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=False)
+    app_external_id = models.CharField(max_length=1024, null=True, blank=True)
+    app_meta = models.TextField(null=True, blank=True)
+    campaign = models.ForeignKey('Campaign')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
