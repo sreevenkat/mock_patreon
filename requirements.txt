@@ -1,5 +1,5 @@
 Django==1.11.21
 django-filter==2.0.0
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 Markdown==3.1.1
 pytz==2019.1
